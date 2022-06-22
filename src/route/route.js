@@ -10,7 +10,10 @@ const authorController= require("../controllers/authorController")
 router.post("/authors", authorController.createAuthor)
 router.post("/blogs", blogController.createBlog)
 router.get("/blogs", blogController.getBlogs)
-router.put("/blogs/:blogId", blogController.updateBlog)
+router.put("/blogs/:blogId", blogController.updateBlog) 
+router.delete("/blogs/:blogId", blogController.deleteBlog)
+router.delete("/blogs", blogController.deleteqBlog)
+
 
 
 

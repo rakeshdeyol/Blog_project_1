@@ -8,13 +8,14 @@ const createAuthor = async function(req , res){
     if(!authorData.lname) res.status(400).send({status: false, msg: "Please include the last name"})
     if(!authorData.email) res.status(400).send({status: false, msg: "Please include an email"})
     if(!authorData.password) res.status(400).send({status: false, msg: "Please include a password"})
-    let savedData = await authorModel.create(data);
-    res.status(201).send({msg : "Data is successfully created", data: savedData}) 
+    //let 
+    let savedData = await authorModel.create(authorData);
+    res.status(201).send({status: true, msg : "Data is successfully created", data: savedData}) 
 
     
     }catch (err) {
         console.log('This is the error :', err.message);
-        res.status(500).send({ msg: 'Error', error: err.message });
+        res.status(500).send({status: false, msg: 'Error', error: err.message });
 }
 }
 
