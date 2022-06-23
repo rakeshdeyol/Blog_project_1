@@ -144,9 +144,20 @@ const deleteqBlog = async function (req, res) {
       };
     }
 
+    if (data.subcategory) {
+      data.subcategory = {
+        $in: data.subcategory,
+      };
+    }
+
     
-    const blog = await blogModel.find({$and:[data, {isDeleted: false}]});
+    const blog = await blogModel.findOne(data);
     if (!blog) return res.status(404).send({status: false, msg: 'BLOG NOT FOUND' });
+    if (blog.isDeleted == true) {
+      res
+        .status(400)
+        .send({ status: false, msg: "This data is already deleted" }); }
+   
     //if (blog.isDeleted == "true") return res.status(400).send({status: false, msg: "This data is already deleted"}); 
     const deletedData = await blogModel.updateMany(data, {
       $set: {
@@ -155,8 +166,11 @@ const deleteqBlog = async function (req, res) {
       },
       {new: true}
     );
-    res.status(200).send({ status: true, data: deletedData });
-  } catch (err) {
+      let f = await blogModel.findOne({deletedData}).select({deletedAt:1, isDeleted:1, _id:0})
+    res.status(200).send({ status: true, msg: f });
+  } 
+
+  catch (err) {
     res.status(500).send({ status: false, msg: err.message });
   }
 };

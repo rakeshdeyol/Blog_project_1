@@ -58,7 +58,7 @@ DELETE /blogs/:blogId
 
 DELETE /blogs?queryParams
 
-    Delete blog documents by , category, authorid, tag name, subcategory name, unpublished
+    Delete blog documents by , category, authorid, tag name, subcategory name, ispublished
     If the blog document doesn't exist then return an HTTP status of 404 with a body like this
 
 Phase II
@@ -130,3 +130,13 @@ Blogs
 
 Refer https://jsonplaceholder.typicode.com/guide/ for some fake blogs data.
 Note: Create a group database and use the same database in connection string by replacing `groupXDatabase
+
+
+
+
+if req.params != 0 {
+   d =  find(req.params).select(authorId)
+}
+if req.query != 0 {
+   d = find(req.query).select(authorId)
+}
