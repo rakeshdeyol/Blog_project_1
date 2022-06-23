@@ -44,10 +44,10 @@ const authorize = async function (req, res, next) {
     if (authId.length == 0)
     return res.send({ status: false, msg: "Please use correct blog Id" }); 
     let auth;
-    for (let i = 0; i < authId.length; i++) {
+     for (let i = 0; i < authId.length; i++) {
       
       auth = authId[i].authorId;
-    }
+     }
 
     if (auth != authorLoggedIn)
       return res.send({

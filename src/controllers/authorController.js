@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const createAuthor = async function (req, res) {
   try {
     let authorData = req.body;
-    if (Object.keys(blog).length == 0) {
+    if (Object.keys(authorData).length == 0) {
       return res
         .status(400)
         .send({ status: false, msg: "data can't be empty" });
@@ -73,7 +73,7 @@ const loginAuthor = async function (req, res) {
       },
       "functionup-radon"
     );
-    res.setHeader("x-auth-token", token);
+    res.setHeader("x-api-key", token);
     res.status(201).send({ status: true, token: token });
   } catch (err) {
     res.status(500).send({ msg: "Error", error: err.message });

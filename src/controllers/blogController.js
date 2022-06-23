@@ -89,7 +89,7 @@ const updateBlog = async function (req, res) {
     }
     blog.isPublished = true;
     blog.publishedAt = Date.now();
-    let updateData = await blogModel.findByIdAndUpdate({ _id: blogId }, blog, {
+    let updateData = await blogModel.findOneAndUpdate({ _id: blogId }, blog, {
       new: true,
     });
     res.status(200).send({ msg: updateData });
