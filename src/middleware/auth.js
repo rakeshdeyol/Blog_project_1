@@ -27,13 +27,13 @@ const authorize = async function (req, res, next) {
     }
 
     let blogToBeModified;
-    if (Object.keys(req.params).length) {
+    if (Object.keys(req.params).length !=0){
       //blogToBeModified = req.params;
       blogToBeModified = req.params.blogId;
     }
     if (Object.keys(req.query).length != 0) {
       blogToBeModified = req.query;
-      //blogToBeModified = req.query
+     
     }
 
     //'if (!mongoose.isValidObjectId(blogToBeModified)) return res.status(400).send({ msg: "Invalid Id" })
