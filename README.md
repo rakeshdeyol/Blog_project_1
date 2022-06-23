@@ -38,7 +38,7 @@ GET /blogs
     Return the HTTP status 200 if any documents are found. The response structure should be like this
     If no documents are found then return an HTTP status 404 with a response like this
     Filter blogs list by applying filters. Query param can have any combination of below filters.
-        By author Id
+        B author Idy
         By category
         List of blogs that have a specific tag
         List of blogs that have a specific subcategory example of a query url: blogs?filtername=filtervalue&f2=fv2
@@ -86,7 +86,7 @@ Testing (Self-evaluation During Development)
 
     To test these apis create a new collection in Postman named Project 1 Blogging
     Each api should have a new request in this collection
-    Each request in the collection should be rightly named. Eg Create author, Create blog, Get blogs etc
+    E named. Eg Create author, Create bach request in the collection should be rightlylog, Get blogs etc
     Each member of each team should have their tests in running state
 
 Refer below sample

@@ -5,6 +5,9 @@ const { param } = require("../route/route");
 const createBlog = async function (req, res) {
   try {
     let blog = req.body;
+    if (Object.keys(blog).length == 0) {
+      return res.status(400).send({ status: false, msg: "data can't be empty" });
+    }
     //if(blog==null) res.status(400).send({status: false, msg: "Please include blog content"})
     if (!blog.title)
       res.status(400).send({ status: false, msg: "Please include an title" });
@@ -38,23 +41,29 @@ const createBlog = async function (req, res) {
     res.status(500).send({ status: false, msg: "Error", error: err.message });
   }
 };
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const getBlogs = async function (req, res) {
   try {
     let filterResult = req.query;
-    console.log(filterResult);
-    if (!filterResult)
-      res
-        .status(400)
-        .send({ status: false, msg: "Please include some filter parameter" });
-    let data = await blogModel
-      .find({ isDeleted: false, isPublished: true, filterResult })
-      .populate("authorId");
-    if (!data) {
-      res.status(404).send({ status: false, msg: "Data not found" });
+    //console.log(filterResult)
+    if (Object.keys(filterResult).length == 0) {
+      return res.status(400).send({ status: false, msg: "Please include some filter parameter"});
     }
-    res.status(200).send({ status: true, msg: data });
-  } catch (err) {
+    if (filterResult.authorId || filterResult.category || filterResult.tags || filterResult.subcategory){
+
+    
+    
+    let data = await blogModel
+        .find(  filterResult, {isDeleted: false}, {isPublished: true})     //{$and:[data, {isDeleted: false}]});
+        .populate("authorId");
+      if (!data) {
+        res.status(404).send({ status: false, msg: "Data not found" });
+      }
+      res.status(200).send({ status: true, msg: data });
+    } 
+    else res.status(404).send({status: false, msg: "Please include correct filter parameter"})  
+  }
+    catch (err) {
     console.log("This is the error:", err.message);
     res.status(500).send({ status: false, msg: "Error", error: err.message });
   }
@@ -79,7 +88,7 @@ const updateBlog = async function (req, res) {
       blog.subcategory.push(data.subcategory);
     }
     blog.isPublished = true;
-    blog.publishedAt = Date();
+    blog.publishedAt = Date.now();
     let updateData = await blogModel.findByIdAndUpdate({ _id: blogId }, blog, {
       new: true,
     });
@@ -134,15 +143,15 @@ const deleteqBlog = async function (req, res) {
         $in: data.tags,
       };
     }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     
-    const blog = await blogModel.find({data});
+    const blog = await blogModel.find({$and:[data, {isDeleted: false}]});
     if (!blog) return res.status(404).send({status: false, msg: 'BLOG NOT FOUND' });
-    if (blog.isDeleted == true) return res.status(400).send({status: false, msg: "This data is already deleted"}); 
+    //if (blog.isDeleted == "true") return res.status(400).send({status: false, msg: "This data is already deleted"}); 
     const deletedData = await blogModel.updateMany(data, {
       $set: {
         isDeleted: true,
-        deletedAt: Date()}
+        deletedAt: Date.now()}
       },
       {new: true}
     );
