@@ -23,16 +23,13 @@ const authorSchema = new mongoose.Schema({
                     
                     password:{
                             require: true,
-                            type: String
+                            type: String,
+                            match: [/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/, "Password must contain, special symbol, a number, uppercase alphabet, a lowercase alphabet and should have 8 to 16 valid characters"]
                     }
 
 }, { timestamps: true });
 
-/* var validateEmail = function(email) {
-    var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    return re.test(email)
-};
- */
+
 
 
 module.exports = mongoose.model('Author', authorSchema) //authors

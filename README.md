@@ -58,7 +58,7 @@ DELETE /blogs/:blogId
 
 DELETE /blogs?queryParams
 
-    Delete blog documents by , category, authorid, tag name, subcategory name, ispublished
+    Delete blog documents by , category, authorid, tag name, subcategory name, ispublished=false ===unpublished
     If the blog document doesn't exist then return an HTTP status of 404 with a body like this
 
 Phase II
@@ -115,7 +115,7 @@ Collections
 Blogs
 
 {
-"title": "How to win friends",
+"title": "How to win 3 friends",
 "body": "Blog body",
 "tags": ["Book", "Friends", "Self help"],
 "category": "Book",
