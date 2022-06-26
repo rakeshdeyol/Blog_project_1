@@ -16,16 +16,7 @@ mongoose.connect("mongodb+srv://neesh:E8DNG8XaM4rrzJCV@cluster0.vlwog.mongodb.ne
 .catch ( err => console.log(err) )
 
 
-/* app.all('/**', (req, res) => {
-    res.status(404).send({ status: false, message: "Page Not Found!" })
-}) */
 
-// app.use (
-//     function (req, res, next) {
-//         console.log ("inside GLOBAL MW");
-//         next();
-//   }
-//   );
 
 app.use('/', route);
 
@@ -33,3 +24,4 @@ app.use('/', route);
 app.listen(process.env.PORT || 3000, function () {
     console.log('Express app running on port ' + (process.env.PORT || 3000))
 });
+

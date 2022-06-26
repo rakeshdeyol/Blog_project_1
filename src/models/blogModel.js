@@ -51,7 +51,7 @@ const blogSchema = new mongoose.Schema({
 
 
 
-module.exports = mongoose.model('Blog', blogSchema)         
+module.exports = mongoose.model('Blog', blogSchema)        //blogs 
               
         
       
