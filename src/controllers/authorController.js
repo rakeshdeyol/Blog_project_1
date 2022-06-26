@@ -33,6 +33,9 @@ const createAuthor = async function (req, res) {
     if(typeof (authorData.title) != "string"){return res.status(400).send({ status: false, error: "Title is not string" });}
     if ((authorData.title).trim().length === 0){{return res.status(400).send({ status: false, error: "Please remove any empty spaces around title" });}} 
     if ((authorData.title).includes(" ")){{return res.status(400).send({ status: false, error: "Please remove any empty spaces in title" });}}
+    if (authorData.title != "Mr" &&  authorData.title != "Mrs" && authorData.title != "Miss")  return res.status(400).send({ status: false, error: "Please use a valid title"}) 
+
+
   
    
   if (!authorData.email){ return res.status(400).send({ status: false, error : "Please include an email" })};

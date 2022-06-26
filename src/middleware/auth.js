@@ -28,7 +28,7 @@ const authorize = async function (req, res, next) {
     if (!token) {
       token = req.headers["x-Api-key"];
     }
-    let decodedToken = jwt.verify(token, "functionup-radon");
+    let decodedToken = jwt.verify(token, "batch-19");
     let authorLoggedIn = decodedToken.authorId;
 
     let authId;
