@@ -164,7 +164,8 @@ const deleteBlogByQuery = async function (req, res) {
     );
       let result = await blogModel.findOne({deletedData}).select({isDeleted:1, deletedAt:1,  _id:0})
     return res.status(200).send({ status: true, msg: result });
-  } 
+  }
+  else  {return res.status(400).send({ status: false, error: "Parameters for deleting can only be authorId, category, tags, subcategory or isPublished" }); }
   }
   catch (err) {
     res.status(500).send({ status: false, error: err.message });

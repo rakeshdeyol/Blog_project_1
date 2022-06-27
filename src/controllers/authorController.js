@@ -42,12 +42,16 @@ const createAuthor = async function (req, res) {
   if(typeof(authorData.email) != "string"){return res.status(400).send({ status: false, error: "Email is not string" });}
   if ((authorData.email).trim().length === 0) {return res.status(400).send({ status: false, error: "Please remove any empty spaces around email" });} 
   if ((authorData.email).includes(" ")){{return res.status(400).send({ status: false, error: "Please remove any empty spaces in email" });}}
+
+  let emailOld = await authorModel.findOne({email: authorData.email})
+   if (emailOld != null){{return res.status(400).send({ status: false, error: "email already exists" })}}
   
     
   if (!authorData.password) {return res.status(400).send({ status: false, error: "Please include a password" })};
   if(typeof (authorData.password) != "string"){return res.status(400).send({ status: false, error: "password is not string" });}
   if ((authorData.password).trim().length === 0){{return res.status(400).send({ status: false, error: "Please remove any empty spaces around password" });}}
   if ((authorData.password).includes(" ")){{return res.status(400).send({ status: false, error: "Please remove any empty spaces in password" });}}
+  /* if ((authorData.password).length) < 8) {return res.status(400).send({ status: false, error: "Password should be atleast 8 characters"} */
   
  
    

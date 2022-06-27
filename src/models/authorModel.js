@@ -25,7 +25,7 @@ const authorSchema = new mongoose.Schema({
                     password:{
                             require: true,
                             type: String,
-                            match: [/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/, "Password must contain, special symbol, a number, uppercase alphabet, a lowercase alphabet and should have 8 to 16 valid characters"]
+                            /* match: [/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/, "Password must contain, special symbol, a number, uppercase alphabet, a lowercase alphabet and should have 8 to 16 valid characters"] */
                     }
 
 }, { timestamps: true });
