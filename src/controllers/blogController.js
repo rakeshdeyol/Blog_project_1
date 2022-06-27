@@ -1,5 +1,6 @@
 const authorModel = require("../models/authorModel");
 const blogModel = require("../models/blogModel");
+const mongoose = require("mongoose");
 
 function hasBlankSpaces(str){
   return  str.match(/^\s+$/) !== null; 
@@ -20,8 +21,14 @@ const createBlog = async function (req, res) {
     if (!blog.category)
       return res.status(400).send({ status: false, msg: "Please include an category" });
 
+    if ((blog.tags).length == 0){return res.status(400).send({ status: false, msg: "Please include some tags" });}
+    if (!mongoose.isValidObjectId(blog.authorId)) return res.status(400).send({ msg: "Invalid author Id" })
+
     let blogData = await authorModel.findById(blog.authorId);
+    
     if (!blogData){ return res.status(400).send({ status: false, msg: "Please use right author id" })};
+
+    
 
     let blogCreated = await blogModel.create(blog);
     return res.status(201).send({status: true,msg: "data created successfully",data: blogCreated,});

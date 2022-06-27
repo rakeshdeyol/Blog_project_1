@@ -51,7 +51,8 @@ const createAuthor = async function (req, res) {
   if(typeof (authorData.password) != "string"){return res.status(400).send({ status: false, msg: "password is not string" });}
   if ((authorData.password).trim().length === 0){{return res.status(400).send({ status: false, msg: "Please remove any empty spaces around password" });}}
   if ((authorData.password).includes(" ")){{return res.status(400).send({ status: false, msg: "Please remove any empty spaces in password" });}}
-   if (((authorData.password).length) <= 8) {return res.status(400).send({ status: false, msg: "Password" })}
+   if (((authorData.password).length) <= 8) {return res.status(400).send({ status: false, msg: "Password should be more than 8" })}
+
   
   
    
