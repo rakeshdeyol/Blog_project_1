@@ -8,14 +8,14 @@ const authenticate = function (req, res, next) {
     let token = req.headers["x-api-key"];
     if (!token) token = req.headers["x-Api-key"];
     if (!token)
-      {return res.status(400).send({ status: false, error: "token must be present" })};
+      {return res.status(400).send({ status: false, msg: "token must be present" })};
 
     
-    if (token.length != 215){ return res.status(400).send({ status: false, error: "token must be valid" })};
+    if (token.length != 215){ return res.status(400).send({ status: false, msg: "token must be valid" })};
     let decodedToken = jwt.verify(token, "batch-19");
     //console.log(decodedToken)
     if (decodedToken.length ==0){
-      return res.status(404).send({ status: false, error: "token is not valid" })};
+      return res.status(404).send({ status: false, msg: "token is not valid" })};
     next();
     } catch (err) {
     return res.status(500).send({ msg: "Error", error: err.message });
@@ -40,11 +40,11 @@ const authorize = async function (req, res, next) {
        authId = await blogModel.findById(blogToBeModified).select("authorId");
      
        if (authId.length == 0){
-        return res.send({ status: false, error: "Please use correct blog Id" })}; 
+        return res.send({ status: false, msg: "Please use correct blog Id" })}; 
        let auth = authId.authorId
        //console.log("this is" ,auth) */
        if (auth != authorLoggedIn){
-         return res.send({status: false,error: "Author logged is not allowed to modify the requested  data"})};
+         return res.send({status: false,msg: "Author logged is not allowed to modify the requested  data"})};
      
       
     }
@@ -53,7 +53,7 @@ const authorize = async function (req, res, next) {
       blogToBeModified = req.query
        authId = await blogModel.find(blogToBeModified).select("authorId");
        if (authId.length == 0){
-      return res.send({ status: false, error: "Please use correct parameters" })}; 
+      return res.send({ status: false, msg: "Please use correct parameters" })}; 
       //let auth;
       for (let i = 0; i < authId.length; i++) {
       
@@ -63,7 +63,7 @@ const authorize = async function (req, res, next) {
     if (auth != authorLoggedIn)
       return res.send({
         status: false,
-        error: "Author logged is not allowed to modify the requested  data"});
+        msg: "Author logged is not allowed to modify the requested  data"});
          
     }    
       
@@ -72,7 +72,7 @@ const authorize = async function (req, res, next) {
     
     //console.log(blogToBeModified)
     if (!blogToBeModified){
-      res.status(400).send({ status: false, error: "Please include a parameter" });
+      res.status(400).send({ status: false, msg: "Please include a parameter" });
     }
     
     
